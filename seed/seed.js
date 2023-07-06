@@ -1,5 +1,8 @@
-import pool from 'pg';
-import data from '../data/recipes.json';
+//import pool from 'pg';
+//import data from '../data/recipes.json';
+
+const pool = require('pg').Pool;
+const data = require('../data/recipes.json');
 
 
 const db = new pool({
@@ -27,4 +30,4 @@ async function Seed() {
     }
 }
 
-export default Seed();
+Seed();
