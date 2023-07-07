@@ -9,12 +9,6 @@ const db = new pool({
 })
 
 //post
-// const create_recipes = await db.query(
-//     'INSERT INTO recipe (title, ingredients, instructions, times, image) VALUES($1, $2, $3, $4, $5) RETURNING *'
-//     [req.body.title, req.body.ingredients, req.body.instructions, req.body.times, req.body.image]
-// )
-// console.log('created recipe successfully')
-
 async function Create() {
     try {
         await db.connect();
@@ -33,7 +27,19 @@ async function Create() {
 }
 
 //get
-// const all_recipes = await db()
+const all_recipes = async (req, res) => {
+    try {
+        await db.connect();
+        let results = await db.query("SELECT * FROM recipe")
+
+    } catch (error) {
+        console.error('could not get data:', error);
+    } finally {
+        res.send(results.row)
+        await db.end()
+    }
+
+}
 // const id_recipe = await db()
 // const ingredients_recipes = await db()
 // const title_recipes = await db()
@@ -44,4 +50,7 @@ async function Create() {
 //delete
 // const delete_recipe = await db()
 
-Create();
+module.exports = {
+    all_recipes,
+    Create
+}

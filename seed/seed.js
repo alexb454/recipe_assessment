@@ -1,6 +1,3 @@
-//import pool from 'pg';
-//import data from '../data/recipes.json';
-
 const pool = require('pg').Pool;
 const data = require('../data/recipes.json');
 
