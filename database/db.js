@@ -31,10 +31,10 @@ const all_recipes = async (req, res) => {
     try {
         await db.connect();
         let results = await db.query("SELECT * FROM recipe")
-
     } catch (error) {
         console.error('could not get data:', error);
     } finally {
+        console.log('working')
         res.send(results.row)
         await db.end()
     }
