@@ -43,11 +43,32 @@ const All_Recipes = async (req, res) => {
     }
 };
 
-// const id_recipe = await db()
+//will need change as this will be a user selected id
+const id_recipe = async (req, res) => {
+    try {
+        const result = await db.query('SELECT id FROM recipe');
+        console.log('id of recipe found and sent');
+        return result.rows;
+    } catch (error) {
+        console.error('Ids not found or issue retreiving the data', error);
+        throw error
+    }
+};
+
 // const ingredients_recipes = await db()
 // const title_recipes = await db()
 // const number_of_ingredients = await db()
-// const random = await db()
+
+const random_recipe = async (req, res) => {
+    try {
+        const result = await db.query('SELECT id FROM recipe ORDER BY RANDOM() LIMIT 1');
+        console.log('Random ID of recipe found and sent');
+        return result.rows[0].id;
+    } catch (error) {
+        console.error('Random id not found or issue retrieving the data', error);
+        throw error;
+    }
+};
 
 
 //put
@@ -57,5 +78,7 @@ const All_Recipes = async (req, res) => {
 
 module.exports = {
     All_Recipes,
+    id_recipe,
+    random_recipe,
     Create
 }
