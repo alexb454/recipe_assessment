@@ -17,10 +17,15 @@ app.get('/all_recipes', async (req, res) => {
     }
 });
 
-app.get('/id_recipe', async (req, res) => {
+app.get('/id_recipe/:id', async (req, res) => {
     try {
-        const recipes = await data.id_recipe();
-        res.json(recipes);
+        const id = parseInt(req.params.id);
+        console.log(req.params)
+        if (isNaN(id)) {
+            throw new Error('Invalid ID');
+        }
+        const recipe = await data.id_recipe(id);
+        res.json(recipe);
     } catch (error) {
         console.log('error getting the id:', error);
         res.status(500).json({ error: 'Error getting the id' })
@@ -29,8 +34,8 @@ app.get('/id_recipe', async (req, res) => {
 
 app.get('/random_recipe', async (req, res) => {
     try {
-        const recipes = await data.random_recipe();
-        res.json(recipes);
+        const ran_recipe = await data.random_recipe();
+        res.json(ran_recipe);
     } catch (error) {
         console.log('error getting the random id:', error);
         res.status(500).json({ error: 'Error getting the random id' })

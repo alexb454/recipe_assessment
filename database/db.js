@@ -44,16 +44,29 @@ const All_Recipes = async (req, res) => {
 };
 
 //will need change as this will be a user selected id
-const id_recipe = async (req, res) => {
+const id_recipe = async (id) => {
     try {
-        const result = await db.query('SELECT id FROM recipe');
-        console.log('id of recipe found and sent');
-        return result.rows;
+        const result = await db.query('SELECT id, title, times, image FROM recipe WHERE id = $1', [id]);
+        console.log(id);
+        console.log('ID of recipe found and sent');
+        return result.rows[0];
     } catch (error) {
-        console.error('Ids not found or issue retreiving the data', error);
-        throw error
+        console.error('Id not found or issue retrieving the data', error);
+        throw error;
     }
-};
+}
+//     try {
+//         //const id = req.query.id; // Retrieve the id from the query parameter
+//         //const query = 'SELECT id FROM recipe WHERE id = $1';
+//         //const result = await db.query(query, [id]); // Pass the id as an argument
+//         const result = await db.query('SELECT id FROM recipe WHERE id = $1');
+//         console.log('id of recipe found and sent');
+//         return result.rows[0];
+//     } catch (error) {
+//         console.error('Ids not found or issue retreiving the data', error);
+//         throw error
+//     }
+// };
 
 // const ingredients_recipes = await db()
 // const title_recipes = await db()
@@ -61,9 +74,9 @@ const id_recipe = async (req, res) => {
 
 const random_recipe = async (req, res) => {
     try {
-        const result = await db.query('SELECT id FROM recipe ORDER BY RANDOM() LIMIT 1');
+        const result = await db.query('SELECT id, title, times, image FROM recipe ORDER BY RANDOM() LIMIT 1');
         console.log('Random ID of recipe found and sent');
-        return result.rows[0].id;
+        return result.rows[0];
     } catch (error) {
         console.error('Random id not found or issue retrieving the data', error);
         throw error;
