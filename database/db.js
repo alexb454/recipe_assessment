@@ -28,34 +28,21 @@ async function Create() {
 
 //get
 
-async function All_Recipes(req, res) {
+const All_Recipes = async (req, res) => {
     try {
-        await db.connect();
-
-        for (const all of recipes) {
-            await db.query('SELECT * FROM recipe')
-        }
+        //await db.connect();
+        const result = await db.query('SELECT * FROM recipe');
         console.log("all recipes are found and sent");
-        res.send(all.row);
+        return result.rows;
+        //res.send(result.rows);
     } catch (error) {
         console.error("a major upset, issue with getting the data:", error);
-    } finally {
-        await db.end();
+        throw error;
+    // } finally {
+    //     await db.end();
     }
-}
-// const all_recipes = async (req, res) => {
-//     try {
-//         await db.connect();
-//         let results = await db.query("SELECT * FROM recipe")
-//     } catch (error) {
-//         console.error('could not get data:', error);
-//     } finally {
-//         console.log('working')
-//         res.send(results.row)
-//         await db.end()
-//     }
+};
 
-// }
 // const id_recipe = await db()
 // const ingredients_recipes = await db()
 // const title_recipes = await db()
