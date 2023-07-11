@@ -9,6 +9,7 @@ const db = new pool({
 })
 
 //post
+//not tested or set up in front ed
 async function Create() {
     try {
         await db.connect();
@@ -30,16 +31,12 @@ async function Create() {
 
 const All_Recipes = async (req, res) => {
     try {
-        //await db.connect();
         const result = await db.query('SELECT * FROM recipe');
         console.log("all recipes are found and sent");
         return result.rows;
-        //res.send(result.rows);
     } catch (error) {
         console.error("a major upset, issue with getting the data:", error);
         throw error;
-    // } finally {
-    //     await db.end();
     }
 };
 
@@ -55,9 +52,9 @@ const id_recipe = async (id) => {
     }
 }
 
-// const ingredients_recipes = await db()
-// const title_recipes = await db()
-// const number_of_ingredients = await db()
+// const ingredients_recipes
+// const title_recipes
+// const number_of_ingredients
 
 const random_recipe = async (req, res) => {
     try {
@@ -70,11 +67,10 @@ const random_recipe = async (req, res) => {
     }
 };
 
-
 //put
-// const update_recipe = await db()
+// const update_recipe
 //delete
-// const delete_recipe = await db()
+// const delete_recipe
 
 module.exports = {
     All_Recipes,
